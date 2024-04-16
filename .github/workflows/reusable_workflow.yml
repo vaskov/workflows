@@ -1,0 +1,21 @@
+name: Reusable Workflow
+on:
+  workflow_call: # wf будет вызываться другим wf
+    secrets:
+      PASSWORD:
+        description: "Password Description"
+        required: true
+        
+jobs:
+  console-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Password
+        run: echo '${{ secrets.PASSWORD }}'
+      - name: Print GitHub
+        run: echo '${{ toJSON(github) }}'
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - run: ls -a
